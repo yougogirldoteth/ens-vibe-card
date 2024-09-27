@@ -16,7 +16,7 @@ If you set `NUXT_PUBLIC_WALLET_ADDRESS` to your wallet address, it becomes your 
 
 ## Prerequisites
 
-- pnpm
+- [pnpm](https://pnpm.io/installation)
 
 ## Steps
 
