@@ -26,17 +26,20 @@ git clone https://github.com/yougogirldoteth/ens-vibe-card.git
 NUXT_PUBLIC_WALLET_ADDRESS=0x90f64E01FfAE16490aeFe03C8ED7Dab6c66198C3
 ```
 
+3. Easily style your ENS Vibe Card by modifying the `style.css` file located in the `assets` folder.
 
-3. Then:
+4. Then:
 ```
 git add .
 git commit -m "first commit"
 ```
-4. Create a new repo on GitHub. Push the clone to your new GitHub repo:
+5. Create a new repo on GitHub. Push the clone to your new GitHub repo:
 ```
 git remote set-url origin https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
 ```
 ```
 git push -u origin main
 ```
-5. Deploy your ENS Vibe Card however you want. For example with [Vercel](https://vercel.com). 
+
+
+6. Deploy your ENS Vibe Card however you want. For example with [Vercel](https://vercel.com). 
