@@ -34,13 +34,16 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  showSuccessButton: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const emit = defineEmits(['search']);
 
 const inputAddress = ref(props.initialAddress);
 const errorMessage = ref('');
-const showSuccessButton = ref(false);
 
 watch(
   () => props.initialAddress,
@@ -49,9 +52,11 @@ watch(
   }
 );
 
+const loading = computed(() => props.loading);
+const showSuccessButton = computed(() => props.showSuccessButton);
+
 const onSearch = () => {
   errorMessage.value = '';
-  showSuccessButton.value = false;
 
   if (!inputAddress.value || inputAddress.value.trim() === '') {
     errorMessage.value = 'Please enter a valid wallet address or ENS name.';

@@ -4,6 +4,7 @@
         v-if="!walletAddress"
         :initialAddress="initialAddress"
         :loading="loading"
+        :showSuccessButton="showSuccessButton"
         @search="fetchProfile"
       />
   
@@ -97,6 +98,7 @@ const followersCount = ref(null);
 const followingCount = ref(null);
 const loading = ref(false);
 const errorMessage = ref('');
+const showSuccessButton = ref(false);
 
 const shortAddress = (address) => {
     if (!address) return '';
@@ -133,6 +135,7 @@ const fetchProfile = async (identifier) => {
   if (identifier) {
     loading.value = true;
     errorMessage.value = '';
+    showSuccessButton.value = false;
     try {
       const isAddress = identifier.startsWith('0x') && identifier.length === 42;
       const isEnsName = /^[a-z0-9-]+(\.[a-z0-9-]+)*\.eth$/.test(identifier);
@@ -151,6 +154,7 @@ const fetchProfile = async (identifier) => {
       if (user && user.address) {
         currentAddress.value = user.address;
         currentIdentifier.value = identifier;
+        showSuccessButton.value = true;
       } else {
         errorMessage.value = 'User not found for identifier: ' + identifier;
       }
