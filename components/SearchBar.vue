@@ -1,5 +1,5 @@
 <template>
-  <div class="search-container">
+  <form @submit.prevent="onSearch"class="search-container">
     <div class="search-row">
       <div class="input-container">
         <input
@@ -9,7 +9,7 @@
         />
         <div v-if="loading" class="loading-bar"></div>
       </div>
-      <Button @click="onSearch" class="search-button">
+      <Button type="submit" class="search-button">
         <Icon type="search"/>
         Search
       </Button>
@@ -19,7 +19,7 @@
         <Icon type="github"/>
       </Button>
     </div>
-  </div>
+  </form>
 </template>
 
 <script setup>
