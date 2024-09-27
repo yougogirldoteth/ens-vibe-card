@@ -60,10 +60,10 @@ const onSearch = async () => {
     return;
   }
 
-  const identifier = inputAddress.value.trim();
+  const identifier = inputAddress.value.trim().toLowerCase();
 
   const isAddress = identifier.startsWith('0x') && identifier.length === 42;
-  const isEnsName = /^[a-z0-9-]+(\.[a-z0-9-]+)*\.eth$/.test(identifier.toLowerCase());
+  const isEnsName = /^[a-z0-9-]+(\.[a-z0-9-]+)*\.eth$/.test(identifier);
 
   if (!isAddress && !isEnsName) {
     errorMessage.value = 'Please enter a valid wallet address or ENS name.';
