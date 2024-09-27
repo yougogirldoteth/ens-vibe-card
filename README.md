@@ -1,6 +1,6 @@
 # ENS VIBE CARD
 
-This simple Single Page App doesn't rely on any proprietary APIs and interacts with the Ethereum blockchain via configurable Node RPC endpoints, many of which are open and free to use.
+This simple Single Page App doesn't rely on any proprietary APIs and interacts with the Ethereum blockchain via Node RPC endpoints.
 
 The profiles are bootstrapped from on-chain data via ENS domains.
 
