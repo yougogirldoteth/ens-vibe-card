@@ -42,7 +42,7 @@ const props = defineProps({
   border: 1px solid var(--shadow-2);
   border-radius: var(--border-radius);
   align-items: center;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   transition: background-color 0.3s;
   position: relative;
 }
@@ -70,8 +70,9 @@ const props = defineProps({
 .stat {
   display: flex;
   flex-direction: row;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
+  gap: 0.1em;
 }
 
 .stat-number {
@@ -94,16 +95,16 @@ const props = defineProps({
   }
 
   .stat {
-  display: flex;
-  flex-direction: column;
-  justify-content: center; 
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .stat-number {
-  font-size: 0.8rem;
-  font-weight: bold;
-  color: var(--primary);
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--primary);
   }
 
   .stat-label {
