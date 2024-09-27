@@ -9,9 +9,15 @@
         />
         <div v-if="loading" class="loading-bar"></div>
       </div>
-      <Button @click="onSearch" class="search-button">Search</Button>
+      <Button @click="onSearch" class="search-button">
+        <Icon type="search"/>
+        Search
+      </Button>
       <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
-      <Button v-if="showSuccessButton" @click="goToRepo" class="success-button">How to deploy your own ENS vibe card</Button>
+      <Button v-if="showSuccessButton" @click="goToRepo" class="success-button">
+        How to deploy your own ENS vibe card
+        <Icon type="github"/>
+      </Button>
     </div>
   </div>
 </template>
@@ -109,7 +115,7 @@ const goToRepo = () => {
 
 .input-container {
   position: relative;
-  width: 300px;
+  width: 320px;
 }
 
 .search-input {
