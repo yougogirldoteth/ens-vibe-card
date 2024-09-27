@@ -204,6 +204,7 @@ input:focus {
 
   .input-container {
     width: 100%;
+    border-radius: 0;
   }
 
   .search-button {
@@ -211,6 +212,7 @@ input:focus {
     min-width: 100vw; 
     width: 100%;
     margin-left: 0;
+    border-radius: 0;
   }
 
   .error-message,
@@ -218,6 +220,7 @@ input:focus {
     position: static;
     width: 100%;
     text-align: center;
+    border-radius: 0;
   }
 }
 </style>

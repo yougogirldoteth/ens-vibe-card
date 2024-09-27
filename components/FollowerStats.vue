@@ -86,4 +86,29 @@ const props = defineProps({
   color: var(--primary-light);
   align-self: last baseline;
 }
+
+@media (max-width: 40rem) {
+  .stats {
+    gap: 0.5rem;
+    padding: 0.25rem;
+  }
+
+  .stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+  }
+
+  .stat-number {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: var(--primary);
+  }
+
+  .stat-label {
+    font-size: 0.5rem;
+    color: var(--primary-light);
+  }
+}
 </style>
