@@ -44,6 +44,7 @@ If you set `NUXT_PUBLIC_WALLET_ADDRESS` to your wallet address, it becomes your 
 
 6. Commit your changes:
     ```sh
+    git init
     git add .
     git commit -m "first commit"
     ```
