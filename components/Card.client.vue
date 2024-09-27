@@ -3,6 +3,7 @@
       <SearchBar
         v-if="!walletAddress"
         :initialAddress="initialAddress"
+        :loading="loading"
         @search="fetchProfile"
       />
   
@@ -18,8 +19,16 @@
   
         <section>
           <h1 @click="!hideAddress && copy(userAddress)">
-            <span>{{ displayName }}</span>
-            <span v-if="user?.location" class="location">{{ user?.location }}</span>
+            <div class="user-info">
+              <span>{{ displayName }}</span>
+              <span v-if="user?.location" class="location">{{ user?.location }}</span>
+              <FollowerStats
+                :identifier="currentIdentifier"
+                :followersCount="followersCount"
+                :followingCount="followingCount"
+                class="follower-stats"
+              />
+            </div>
             <small v-if="copied">copied...</small>
             <small v-else-if="!hideAddress">{{ shortAddress(userAddress) }}</small>
           </h1>
@@ -55,10 +64,10 @@
         </section>
       </div>
     </div>
-</template>
+</template>  
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { useClipboard } from '@vueuse/core';
 import { useRuntimeConfig } from '#imports';
 import { useOnchainStore } from '~/composables/profile';
@@ -76,7 +85,6 @@ const validateAndTransformUrl = (url, defaultUrl) => {
   }
 };
 
-
 const config = useRuntimeConfig();
 const walletAddress = config.public.walletAddress;
 
@@ -84,6 +92,11 @@ const currentAddress = ref('');
 const currentIdentifier = ref('');
 const initialAddress = ref('');
 const hideAddress = ref(false);
+
+const followersCount = ref(null);
+const followingCount = ref(null);
+const loading = ref(false);
+const errorMessage = ref('');
 
 const shortAddress = (address) => {
     if (!address) return '';
@@ -93,26 +106,69 @@ const shortAddress = (address) => {
 const store = useOnchainStore();
 
 onMounted(() => {
-    if (walletAddress) {
-        initialAddress.value = walletAddress;
-        fetchProfile(walletAddress);
-    }
+  if (walletAddress) {
+    initialAddress.value = walletAddress;
+    fetchProfile(walletAddress);
+  }
 });
 
-const fetchProfile = async (identifier) => {
-    if (identifier) {
-        try {
-        const user = await store.fetchUserProfile(identifier);
-        if (user && user.address) {
-            currentAddress.value = user.address;
-            currentIdentifier.value = identifier;
-        } else {
-            console.error('User not found for identifier:', identifier);
-        }
-        } catch (error) {
-        console.error('Error fetching user profile:', error);
-        }
+const fetchFollowerStats = async (identifier) => {
+  if (identifier) {
+    try {
+      const response = await fetch(`https://api.ethfollow.xyz/api/v1/users/${identifier}/stats`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch follower stats: ${response.statusText}`);
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching follower stats:', error);
+      return null;
     }
+  }
+  return null;
+};
+
+const fetchProfile = async (identifier) => {
+  if (identifier) {
+    loading.value = true;
+    errorMessage.value = '';
+    try {
+      const isAddress = identifier.startsWith('0x') && identifier.length === 42;
+      const isEnsName = /^[a-z0-9-]+(\.[a-z0-9-]+)*\.eth$/.test(identifier);
+
+      if (!isAddress && !isEnsName) {
+        errorMessage.value = 'Please enter a valid wallet address or ENS name.';
+        loading.value = false;
+        return;
+      }
+
+      const [user, stats] = await Promise.all([
+        store.fetchUserProfile(identifier),
+        fetchFollowerStats(identifier),
+      ]);
+
+      if (user && user.address) {
+        currentAddress.value = user.address;
+        currentIdentifier.value = identifier;
+      } else {
+        errorMessage.value = 'User not found for identifier: ' + identifier;
+      }
+
+      if (stats) {
+        followersCount.value = Number(stats.followers_count);
+        followingCount.value = Number(stats.following_count);
+      } else {
+        followersCount.value = null;
+        followingCount.value = null;
+      }
+    } catch (error) {
+      console.error('Error fetching user profile or follower stats:', error);
+      errorMessage.value = 'An error occurred while fetching data.';
+    } finally {
+      loading.value = false;
+    }
+  }
 };
 
 const user = computed(() => store.user(currentAddress.value));
@@ -316,5 +372,14 @@ ul li a:active {
     100% {
         box-shadow: 1rem 1.45rem 5rem 3.9rem var(--shadow-3);
     }
+}
+
+.user-info {
+    display: flex;
+    align-items: last baseline;
+}
+
+.follower-stats {
+    margin-left: auto;
 }
 </style>

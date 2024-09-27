@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="onSearch"class="search-container">
+  <form @submit.prevent="onSearch" class="search-container">
     <div class="search-row">
       <div class="input-container">
         <input
@@ -10,13 +10,13 @@
         <div v-if="loading" class="loading-bar"></div>
       </div>
       <Button type="submit" class="search-button">
-        <Icon type="search"/>
+        <Icon type="search" />
         Search
       </Button>
       <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
       <Button v-if="showSuccessButton" @click="goToRepo" class="success-button">
         How to deploy your own ENS vibe card
-        <Icon type="github"/>
+        <Icon type="github" />
       </Button>
     </div>
   </form>
@@ -24,12 +24,15 @@
 
 <script setup>
 import { ref, watch } from 'vue';
-import { useOnchainStore } from '~/composables/profile';
 
 const props = defineProps({
   initialAddress: {
     type: String,
     default: '',
+  },
+  loading: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -38,7 +41,6 @@ const emit = defineEmits(['search']);
 const inputAddress = ref(props.initialAddress);
 const errorMessage = ref('');
 const showSuccessButton = ref(false);
-const loading = ref(false);
 
 watch(
   () => props.initialAddress,
@@ -47,16 +49,12 @@ watch(
   }
 );
 
-const store = useOnchainStore();
-
-const onSearch = async () => {
+const onSearch = () => {
   errorMessage.value = '';
   showSuccessButton.value = false;
-  loading.value = true;
 
   if (!inputAddress.value || inputAddress.value.trim() === '') {
     errorMessage.value = 'Please enter a valid wallet address or ENS name.';
-    loading.value = false;
     return;
   }
 
@@ -67,30 +65,10 @@ const onSearch = async () => {
 
   if (!isAddress && !isEnsName) {
     errorMessage.value = 'Please enter a valid wallet address or ENS name.';
-    loading.value = false;
     return;
   }
 
-  try {
-    const user = await store.fetchUserProfile(identifier);
-
-    if (isEnsName && (!user || !user.address)) {
-      errorMessage.value = 'No resolved address (set it as your primary ENS name) or not a registered ENS name.';
-      loading.value = false;
-      return;
-    }
-
-    if (isAddress && !user.ens) {
-      errorMessage.value = 'No primary ENS name set.';
-    }
-
-    emit('search', identifier);
-    showSuccessButton.value = true;
-  } catch (error) {
-    console.error(error);
-  } finally {
-    loading.value = false;
-  }
+  emit('search', identifier);
 };
 
 const goToRepo = () => {
