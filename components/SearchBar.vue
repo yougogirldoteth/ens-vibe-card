@@ -109,7 +109,7 @@ const goToRepo = () => {
 
 .input-container {
   position: relative;
-  width: 300px; /* Match the width of the input field */
+  width: 300px;
 }
 
 .search-input {
@@ -119,7 +119,7 @@ const goToRepo = () => {
   background-color: var(--dark-bg);
   border: var(--border);
   border-radius: var(--border-radius);
-  box-shadow: 0 0.05rem 1rem 0.5rem rgb(68 147 240 / 4.54%);
+  box-shadow: 0 0.05rem 1rem 0.5rem var(--shadow-1);
   animation: gradient 5s infinite alternate;
   margin-right: 1rem;
 }
@@ -190,17 +190,45 @@ const goToRepo = () => {
 
 @keyframes gradient {
     0% {
-        box-shadow: 0 0.25rem 3rem 2rem rgb(68 147 240 / 8%);
+        box-shadow: 0 0.25rem 3rem 2rem var(--shadow-1);
     }
      50% {
-        box-shadow: -0.5rem -0.5rem 3rem 2rem rgba(114, 152, 248, 12%);
+        box-shadow: -0.5rem -0.5rem 3rem 2rem var(--shadow-2);
     }
     100% {
-        box-shadow: 1rem 1.45rem 5rem 3.9rem rgba(160, 153, 255, 17%);
+        box-shadow: 1rem 1.45rem 5rem 3.9rem var(--shadow-3);
     }
 }
 
 input:focus {
   outline: 0;
+}
+
+@media (max-width: 40rem) {
+  .search-container {
+    margin: 0;
+  }
+  .search-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .input-container {
+    width: 100%;
+  }
+
+  .search-button {
+    max-width: 100vw;
+    min-width: 100vw; 
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .error-message,
+  .success-button {
+    position: static;
+    width: 100%;
+    text-align: center;
+  }
 }
 </style>

@@ -180,6 +180,36 @@ const isIframe = (url) => {
     animation: gradient 5s infinite alternate;
 }
 
+@media (max-width: 40rem) {
+    .card {
+        max-width: 100vw;
+        min-width: 100vw;
+        border-radius: 0;
+        margin: 0;
+    }
+
+    .header img:nth-child(2) {
+        max-width: 20vw;
+    }
+
+    section {
+        padding: 1.5rem var(--box-padding) var(--box-padding);
+    }
+
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+
+    ul li a {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.7rem;
+    }
+}
+
 header {
     background-color: var(--dark-bg);
     position: relative;
