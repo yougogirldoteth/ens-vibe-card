@@ -43,7 +43,7 @@
     font-style: regular;
     font-weight: 400;
     src: local(''),
-        url('./fonts/SpaceMono-Regular.woff2') format('woff2'),
+        url('/fonts/SpaceMono-Regular.woff2') format('woff2'),
         url('/fonts/SpaceMono-Regular.woff') format('woff');
 }
 
