@@ -11,26 +11,31 @@
     --size-8:  3rem;
     --size-9:  4.5rem;
     --size-10: 6rem;
-
+    
     --spacer-xs: var(--size-0);
     --spacer-sm: var(--size-2);
     --spacer: var(--size-4);
     --spacer-lg: var(--size-7);
     --spacer-xl: var(--size-9);
     --box-padding: 1.5rem;
+    --ui-padding-x: var(--spacer);
   
-    /* Colors */
+    /* Colors - ENS color palette */
     --black: black;
     --dark-bg: rgb(68 188 240 / 4.54%);
     --primary: #7298f8;
+    --primary-light: #b5caff;
     --action: rgb(68 188 240 / 4.54%);
     --action-active: rgb(114 152 248 / 59.2%);
   
+    --shadow-1: rgb(68 147 240 / 8%);
+    --shadow-2: rgba(114, 152, 248, 12%);
+    --shadow-3: rgba(160, 153, 255, 17%);
+
     /* Borders */
     --border-radius: 0.5rem;
     --border: 3px solid rgba(23, 185, 255, 0.06);
     --border-dark: 3px solid var(--dark-bg);
-    --ui-padding-x: var(--spacer):
 }
   
 /* space-mono-regular - latin */
@@ -50,20 +55,4 @@
     src: local(''),
         url('/fonts/space-mono-v10-latin-700italic.woff2') format('woff2'),
         url('/fonts/space-mono-v10-latin-700italic.woff') format('woff');
-}
-  
-body {
-    background-color: var(--dark-bg);
-    color: white;
-    min-height: 100vh;
-    font-family: 'Space Mono', monospace;
-}
-
-@media (min-width: 40.5rem) {
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: var(--black);
-    }
 }

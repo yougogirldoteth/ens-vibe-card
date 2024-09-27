@@ -23,7 +23,7 @@ defineProps({
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  gap: var(--spacer-sm);
+  gap: var(--spacer);
   letter-spacing: var(--ui-letter-spacing);
   line-height: var(--ui-line-height);
 
@@ -64,11 +64,6 @@ defineProps({
     &:--highlight {
       background: var(--button-background-highlight);
       color: var(--color);
-    }
-
-    .icon {
-      align-self: center;
-      height: inherit;
     }
   }
 
