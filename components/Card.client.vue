@@ -314,10 +314,11 @@ h1 span {
     display: inline;
 }
 
-h1 small {
+h1 > small {
     display: block;
     font-size: 0.8rem;
     margin-top: -0.5rem;
+    color: var(--primary-light);
 }
 
 p {
