@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 
 const props = defineProps({
   initialAddress: {
@@ -44,6 +44,7 @@ const emit = defineEmits(['search']);
 
 const inputAddress = ref(props.initialAddress);
 const errorMessage = ref('');
+const showSuccessButton = ref(props.showSuccessButton);
 
 watch(
   () => props.initialAddress,
@@ -53,10 +54,14 @@ watch(
 );
 
 const loading = computed(() => props.loading);
-const showSuccessButton = computed(() => props.showSuccessButton);
+
+watch(inputAddress, () => {
+  showSuccessButton.value = false;
+});
 
 const onSearch = () => {
   errorMessage.value = '';
+  showSuccessButton.value = false; // Hide success button on new search
 
   if (!inputAddress.value || inputAddress.value.trim() === '') {
     errorMessage.value = 'Please enter a valid wallet address or ENS name.';
@@ -74,6 +79,7 @@ const onSearch = () => {
   }
 
   emit('search', identifier);
+  showSuccessButton.value = true; // Show success button after successful search
 };
 
 const goToRepo = () => {
