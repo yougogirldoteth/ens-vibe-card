@@ -40,10 +40,6 @@ defineProps({
     color: var(--muted);
   }
 
-  &:--highlight {
-    background: var(--button-background-highlight);
-  }
-
   > * {
     display: inline-flex;
     align-items: center; 
@@ -60,11 +56,6 @@ defineProps({
     background: transparent;
     line-height: inherit;
     color: var(--muted);
-
-    &:--highlight {
-      background: var(--button-background-highlight);
-      color: var(--color);
-    }
   }
 
   &.inline {
